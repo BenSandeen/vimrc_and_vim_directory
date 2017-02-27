@@ -28,9 +28,48 @@ Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-"filteype plugin indent on
+"filetype plugin indent on
+
+" Integrating clang-format utility:
+" Maps CTRL+k to do the formatting stuff
+" map <C-K> :pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
+" imap <C-K> <c-o>:pyf /usr/share/clang/clang-format-3.8/clang-format.py<cr>
+
+" Easier moving in tabs and windows
+
+" This set collapses the unused window
+" map <C-J> <C-W>j<C-W>_
+" map <C-K> <C-W>k<C-W>_
+" map <C-L> <C-W>l<C-W>_
+" map <C-H> <C-W>h<C-W>_
+
+" The above version helped me figure out how to easily change the sizes of windows (when at
+" least 2 are open in a terminal window)!  Press <C-W> (i.e. CTRL+w) and then
+" <C-W>-   # CTRL+W then -       reduces active window's height by one row
+" <C-W>+   # CTRL+W then +       increases active window's height by one row
+" <C-W><   # CTRL+W then <       reduces active window's width by one row
+" <C-W>+   # CTRL+W then +       increases active window's width by one row
+" <C-W>{N}-   # CTRL+W then a number then -       reduces active window's height by N rows
+" <C-W>{N}+   # CTRL+W then a number then +       increases active window's height by N rows
+" <C-W>{N}<   # CTRL+W then a number then <       reduces active window's width by N rows
+" <C-W>{N}+   # CTRL+W then a number then +       increases active window's width by N rows
+
+" This set makes it so that we may move back to the previous window, depending
+" on the direction key we hit
+" map <C-J> <C-W>j<C-W>
+" map <C-K> <C-W>k<C-W>
+" map <C-L> <C-W>l<C-W>
+" map <C-H> <C-W>h<C-W>
+
+" This set doesn't collapse the window and doesn't allow us to accidentally
+" move to a different window
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+map <C-H> <C-W>h
 
 
+set nu                            " line numbers on
 set incsearch
 set ignorecase
 set smartcase
@@ -38,6 +77,11 @@ set scrolloff=3
 set wildmode=longest,list
 set completeopt=menu,preview
 set autoindent
+set cindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
 ab teh the
 ab tihs this
 ab dfe def
@@ -64,20 +108,24 @@ function! Tab_Or_Complete()
     return "\<Tab>"
   endif
 endfunction
-:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
-:set dictionary="/usr/dict/words"
+inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+set dictionary="/usr/dict/words"
 
-noremap <M-LeftMouse> <4-LeftMouse>
-inoremap <M-LeftMouse> <4-LeftMouse>
-onoremap <M-LeftMouse> <C-C><4-LeftMouse>
-noremap <M-LeftDrag> <LeftDrag>
-inoremap <M-LeftDrag> <LeftDrag>
-onoremap <M-LeftDrag> <C-C><LeftDrag>
+" noremap <M-LeftMouse> <4-LeftMouse>
+" inoremap <M-LeftMouse> <4-LeftMouse>
+" onoremap <M-LeftMouse> <C-C><4-LeftMouse>
+" noremap <M-LeftDrag> <LeftDrag>
+" inoremap <M-LeftDrag> <LeftDrag>
+" onoremap <M-LeftDrag> <C-C><LeftDrag>
+
+"disable the following pathogen plugins BEFORE starting pathogen
+" let g:pathogen_disable = ['youcompleteme']
 
 "call pathogen#infect()
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+filetype plugin on
 
 " for rainbow_parentheses:
 au VimEnter * RainbowParenthesesToggle
@@ -86,11 +134,16 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 " for vim-indent-guides:
-" let g:indent_guids_auto_colors = 0
+" let g:indent_guids_auto_colors = 1
+
+" highlight Normal ctermfg=grey ctermbg=darkblue
 
 " for vim-colors-solarized-ours:
+set t_ut=
 syntax enable
 set background=light
+" set background=dark
+" set t_Co=256
 let g:solarized_termcolors=256
 colorscheme solarized
 
@@ -129,10 +182,12 @@ let g:rainbow_conf = {
 	\}
 
 " for CursorLineCurrentWindow:
-" set cursorline
+set nocursorline
 
 " for plugin searchtasks:
 
+" for vim-indent-guides:
+" let g:indent_guides_auto_colors
 
 " autocmd VimEnter ~/Documents/Work/my_packing/python_packing/old_packing.py UndotreeShow
 " autocmd VimEnter ~/Documents/Work/my_packing/python_packing/old_packing.py vsplit setup.py
@@ -148,6 +203,10 @@ autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp vsplit Co
 autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp split Particle.h
 autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp tabe Position.cpp
 autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp vsplit Position.h
+autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp split ParticlePackSimulation.h
+autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp UndotreeShow
+autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp tabe InitializeSimulation.cpp
+autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp vsplit InitializeSimulation.h
 autocmd VimEnter ~/Documents/Work/my_packing/c++_packing/Container.cpp UndotreeShow
 
 " let g:rehash256 = 1

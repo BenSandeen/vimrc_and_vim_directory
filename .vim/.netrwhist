@@ -1,2 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/ben/.vim/bundle'
+let g:netrw_dirhist_2='/home/ben/Documents/Work/ATKParPack/parpack/python_pack_processing'
+let g:netrw_dirhist_3='/home/ben/.vim/bundle/indentline'
+let g:netrw_dirhist_4='/home/ben/.vim/bundle/indentline/doc'
+let g:netrw_dirhist_5='/home/ben/.vim'
+let g:netrw_dirhist_6='/home/ben/.vim/bundle/vim-characterize'
+let g:netrw_dirhist_7='/home/ben/Downloads/opengrok-0.13-rc10/doc'
